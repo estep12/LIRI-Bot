@@ -13,7 +13,7 @@ var action = process.argv[2];
 
 var title = "";
 
-for (let i = 3; i<nodeArgv.length; i ++){
+for (let i = 3; i < nodeArgv.length; i++) {
     title = title + "" + nodeArgv[i];
 }
 
@@ -50,23 +50,27 @@ function tweets() {
     var params = { screen_name: "JohnDenver600" };
     client.get("statuses/user_timeline", params, function (error, tweets, response) {
         if (!error) {
-            for(let i = 0; i<tweets.length; i ++)
-            console.log("@JohnDenver600 " + tweets[i].text);
-            console.log("----------------------");
-            
+            for (let i = 0; i < tweets.length; i++) {
+                var date = tweets[i].created_at;
+                console.log("@JohnDenver600: " + tweets[i].text + "Created at: " + date);
+                console.log("----------------------");
+
+                fs.appendFile("random.txt", '@JohnDenver600: ' + tweets[i].text + "Created at: " + date)
+                // fs.appendFile("random.txt", '--------------------');
+            }
         } else {
             console.log("An error occured. Tweet better content.");
-            
+
         }
     });
 };
 
 
-function spotifySong(title) {
-    spotify.search({ type: "track" , query: title }, function (err, data) {
+function spotifySong() {
+    spotify.search({ type: "track", query: title }, function (err, data) {
         if (err) {
             return console.log("Error occurred: " + err);
-        } else{
+        } else {
 
         }
 
@@ -75,7 +79,7 @@ function spotifySong(title) {
 };
 
 
-function movieThis(){
+function movieThis() {
 
 };
 
