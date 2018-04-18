@@ -55,8 +55,8 @@ function tweets() {
                 console.log("@JohnDenver600: " + tweets[i].text + "Created at: " + date);
                 console.log("----------------------");
 
-                fs.appendFile("random.txt", '@JohnDenver600: ' + tweets[i].text + "Created at: " + date)
-                // fs.appendFile("random.txt", '--------------------');
+                // fs.appendFile("log.txt", '@JohnDenver600: ' + tweets[i].text + "Created at: " + date)
+                // fs.appendFile("log.txt", '--------------------');
             }
         } else {
             console.log("An error occured. Tweet better content.");
