@@ -55,7 +55,7 @@ function tweets() {
                 console.log("@JohnDenver600: " + tweets[i].text + "Created at: " + date);
                 console.log("----------------------");
 
-                // fs.appendFile("log.txt", '@JohnDenver600: ' + tweets[i].text + "Created at: " + date)
+                fs.appendFile("log.txt", '@JohnDenver600: ' + tweets[i].text + "Created at: " + date)
                 // fs.appendFile("log.txt", '--------------------');
             }
         } else {
@@ -71,10 +71,15 @@ function spotifySong() {
         if (err) {
             return console.log("Error occurred: " + err);
         } else {
+            for( let i = 0; i<data.length; i ++){
+                var songData = data.tracks.items[1];
+                console.log();
+                
+            }
 
         }
 
-        console.log(data);
+        console.log(data.tracks.items);
     });
 };
 
