@@ -2,8 +2,8 @@ require("dotenv").config();
 
 var keys = require("./keys.js");
 var request = require("request");
-var spotify2 = require("node-spotify-api");
-var twitter = require("twitter");
+var Spotify = require("node-spotify-api");
+var Twitter = require("twitter");
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 var fs = require("fs");
@@ -13,7 +13,9 @@ var action = process.argv[2];
 
 var title = "";
 
-
+for (let i = 3; i<nodeArgv.length; i ++){
+    title = title + "" + nodeArgv[i];
+}
 
 
 
@@ -48,7 +50,13 @@ function tweets() {
     var params = { screen_name: "JohnDenver600" };
     client.get("statuses/user_timeline", params, function (error, tweets, response) {
         if (!error) {
-            console.log(tweets);
+            for(let i = 0; i<tweets.length; i ++)
+            console.log("@JohnDenver600 " + tweets[i].text);
+            console.log("----------------------");
+            
+        } else {
+            console.log("An error occured. Tweet better content.");
+            
         }
     });
 };
@@ -59,7 +67,7 @@ function spotifySong(title) {
         if (err) {
             return console.log("Error occurred: " + err);
         } else{
-            
+
         }
 
         console.log(data);
