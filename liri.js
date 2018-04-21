@@ -14,8 +14,12 @@ var action = process.argv[2];
 var title = "";
 
 for (let i = 3; i < nodeArgv.length; i++) {
-    title = title + "" + nodeArgv[i];
-}
+    if( i > 3 && i < nodeArgv.length){
+        title = title + "+" + nodeArgv[i];
+    } else{
+        title += nodeArgv[i];
+    }
+};
 
 
 
@@ -66,31 +70,55 @@ function tweets() {
 };
 
 
-function spotifySong() {
+function spotifySong(title) {
     spotify.search({ type: "track", query: title }, function (err, data) {
         if (err) {
             return console.log("Error occurred: " + err);
         } else {
-            for( let i = 0; i<data.length; i ++){
-                var songData = data.tracks.items[1];
-                console.log();
-                
+            for (let i = 0; i < data.tracks.items.length; i++) {
+                var songData = data.tracks.items[i];
+                console.log("Artists: " + songData.artists[0].name);
+                console.log("Song: " + songData.name);
+                console.log("Preview: " + songData.preview_url);
+                console.log("Album: " + songData.album.name);
+
+
             }
 
         }
-
-        console.log(data.tracks.items);
     });
 };
 
 
-function movieThis() {
+function movieThis(title) {
+    var queryURL = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy"
 
+    console.log(queryURL);
+
+    request(queryURL, function (err, response, body) {
+        if (!err && response.statusCode === 200) {
+            var body = JSON.parse(body);
+
+            console.log("Title: " + body.Title);
+            console.log("Year: " + body.Year);
+            console.log("IMDB Rating: " + body.imdbRating);
+            console.log("Rotten Tomatoes Rating: " + body.Ratings[1].Value);
+            console.log("Country: " + body.Country);
+            console.log("Language: " + body.Language);
+            console.log("Plot: " + body.Plot);
+            console.log("Actors: " + body.Actors);
+            
+        } else{
+            console.log("An error has occured");
+        }
+    });
 };
 
 
 function doIt() {
     fs.readFile("random.txt", "utf8", function (err, data) {
         var text = data.split(", ")
+
+        spotifySong(text[1])
     })
 };
