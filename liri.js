@@ -84,7 +84,8 @@ function spotifySong(title) {
 
 
             }
-
+          
+            
         }
     });
 };
@@ -117,8 +118,8 @@ function movieThis(title) {
 
 function doIt() {
     fs.readFile("random.txt", "utf8", function (err, data) {
-        var text = data.split(", ")
-
-        spotifySong(text[1])
-    })
+        var text = data.split(",")
+        var search = text[1]
+        spotifySong(search)
+;    })
 };
